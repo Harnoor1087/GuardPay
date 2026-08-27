@@ -1,0 +1,148 @@
+[
+  {
+    "id": "shoe_001",
+    "name": "Nike Pegasus 40",
+    "brand": "Nike",
+    "category": "running_shoes",
+    "description": "Lightweight road running shoe with responsive cushioning.",
+    "price": 4799,
+    "currency": "INR",
+    "rating": 4.6,
+    "review_count": 1240,
+    "inventory": 42,
+    "attributes": {
+      "surface": ["road"],
+      "waterproof": false,
+      "weight_grams": 285,
+      "cushioning": "high"
+    },
+    "shipping": {
+      "delivery_days": 3
+    }
+  },
+  {
+    "id": "shoe_002",
+    "name": "Nike Winflo 10",
+    "brand": "Nike",
+    "category": "running_shoes",
+    "description": "Everyday running shoe designed for road running.",
+    "price": 3999,
+    "currency": "INR",
+    "rating": 4.3,
+    "review_count": 870,
+    "inventory": 28,
+    "attributes": {
+      "surface": ["road"],
+      "waterproof": false,
+      "weight_grams": 300,
+      "cushioning": "medium"
+    },
+    "shipping": {
+      "delivery_days": 4
+    }
+  },
+  {
+    "id": "shoe_003",
+    "name": "Nike Revolution 7",
+    "brand": "Nike",
+    "category": "running_shoes",
+    "description": "Affordable everyday running shoe for road surfaces.",
+    "price": 3299,
+    "currency": "INR",
+    "rating": 4.1,
+    "review_count": 650,
+    "inventory": 15,
+    "attributes": {
+      "surface": ["road"],
+      "waterproof": false,
+      "weight_grams": 290,
+      "cushioning": "medium"
+    },
+    "shipping": {
+      "delivery_days": 5
+    }
+  },
+  {
+    "id": "shoe_004",
+    "name": "Adidas Supernova Rise",
+    "brand": "Adidas",
+    "category": "running_shoes",
+    "description": "Cushioned road running shoe designed for comfortable daily runs.",
+    "price": 4999,
+    "currency": "INR",
+    "rating": 4.7,
+    "review_count": 980,
+    "inventory": 31,
+    "attributes": {
+      "surface": ["road"],
+      "waterproof": false,
+      "weight_grams": 277,
+      "cushioning": "high"
+    },
+    "shipping": {
+      "delivery_days": 3
+    }
+  },
+  {
+    "id": "shoe_005",
+    "name": "ASICS Gel-Venture 9",
+    "brand": "ASICS",
+    "category": "running_shoes",
+    "description": "Durable running shoe suitable for road and light trail use.",
+    "price": 4499,
+    "currency": "INR",
+    "rating": 4.5,
+    "review_count": 720,
+    "inventory": 19,
+    "attributes": {
+      "surface": ["road", "trail"],
+      "waterproof": false,
+      "weight_grams": 305,
+      "cushioning": "high"
+    },
+    "shipping": {
+      "delivery_days": 4
+    }
+  },
+  {
+    "id": "shoe_006",
+    "name": "Puma Velocity Nitro 3",
+    "brand": "Puma",
+    "category": "running_shoes",
+    "description": "Responsive road running shoe designed for daily training.",
+    "price": 5499,
+    "currency": "INR",
+    "rating": 4.6,
+    "review_count": 540,
+    "inventory": 22,
+    "attributes": {
+      "surface": ["road"],
+      "waterproof": false,
+      "weight_grams": 270,
+      "cushioning": "high"
+    },
+    "shipping": {
+      "delivery_days": 3
+    }
+  },
+  {
+    "id": "laptop_001",
+    "name": "Lenovo IdeaPad Slim 5",
+    "brand": "Lenovo",
+    "category": "laptops",
+    "description": "Slim productivity laptop for students and professionals.",
+    "price": 64999,
+    "currency": "INR",
+    "rating": 4.5,
+    "review_count": 1120,
+    "inventory": 17,
+    "attributes": {
+      "ram_gb": 16,
+      "storage_gb": 512,
+      "processor": "Intel Core i5"
+    },
+    "shipping": {
+      "delivery_days": 4
+    }
+  }
+]
