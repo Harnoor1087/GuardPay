@@ -1,0 +1,53 @@
+from fastapi.testclient import TestClient
+
+from backend.app.main import app
+
+
+client = TestClient(app)
+
+
+def test_empty_search_message_is_rejected():
+
+    response = client.post(
+        "/api/v1/search",
+        json={
+            "message": ""
+        },
+    )
+
+    assert response.status_code == 422
+
+
+def test_whitespace_search_message_is_rejected():
+
+    response = client.post(
+        "/api/v1/search",
+        json={
+            "message": "     "
+        },
+    )
+
+    assert response.status_code == 422
+
+
+def test_search_message_is_trimmed():
+
+    response = client.post(
+        "/api/v1/search",
+        json={
+            "message": "   Find Nike running shoes under 5000   "
+        },
+    )
+
+    assert response.status_code == 200
+
+def test_search_message_too_long_is_rejected():
+
+    response = client.post(
+        "/api/v1/search",
+        json={
+            "message": "a" * 2001
+        },
+    )
+
+    assert response.status_code == 422

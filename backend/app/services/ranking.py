@@ -1,6 +1,7 @@
 from backend.app.schemas.product import Product
 from backend.app.schemas.ranking import RankedProduct, RankingBreakdown
 from backend.app.services.ranking_explanation import generate_explanation
+from backend.app.services.use_case import normalize_use_case
 
 class ProductRankingService:
 
@@ -57,10 +58,15 @@ class ProductRankingService:
 
             feature_score = 0.0
 
-            if preferred_use_case:
-                surfaces = product.attributes.surface or []
+            normalized_use_case = normalize_use_case(preferred_use_case)
 
-                if preferred_use_case in surfaces:
+            if normalized_use_case:
+                surfaces = [
+                    surface.strip().lower()
+                    for surface in (product.attributes.surface or [])
+                ]
+
+                if normalized_use_case in surfaces:
                     feature_score = 1.0
 
             final_score = (

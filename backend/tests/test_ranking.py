@@ -56,3 +56,26 @@ def test_ranking_contains_explanation():
     assert top_product.explanation
     assert isinstance(top_product.explanation, str)
     assert len(top_product.explanation) > 0
+
+def test_road_running_matches_road_surface():
+
+    catalog = ProductCatalog("data/products.json")
+
+    products = [
+        product
+        for product in catalog.get_all_products()
+        if product.brand == "Nike"
+        and product.category == "running_shoes"
+        and product.price <= 5000
+    ]
+
+    ranking_service = ProductRankingService()
+
+    ranked_products = ranking_service.rank(
+        products,
+        preferred_use_case="road_running",
+    )
+
+    for ranked_product in ranked_products:
+        assert ranked_product.product.attributes.surface == ["road"]
+        assert ranked_product.breakdown.feature_match == 1.0
