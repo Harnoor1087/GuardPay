@@ -8,4 +8,11 @@ class IntentExtractor:
         self.provider = provider
 
     def extract(self, user_message: str) -> ShoppingIntent:
-        return self.provider.extract_intent(user_message)
+        result = self.provider.extract_intent(user_message)
+
+        if not isinstance(result, ShoppingIntent):
+            raise TypeError(
+                "LLM provider returned an invalid intent."
+            )
+
+        return result
