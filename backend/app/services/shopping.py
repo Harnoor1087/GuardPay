@@ -4,7 +4,7 @@ from backend.app.services.ranking import ProductRankingService
 from backend.app.security.gateway import SecurityGateway
 from backend.app.security.models import SecurityDecision
 from backend.app.security.exceptions import SecurityBlockedError
-
+from backend.app.security.audit import SecurityAuditLogger
 
 class ShoppingService:
 
@@ -15,17 +15,24 @@ class ShoppingService:
         ranking_service: ProductRankingService,
         security_gateway: SecurityGateway,
         products,
+        audit_logger: SecurityAuditLogger | None = None,
     ):
         self.intent_extractor = intent_extractor
         self.search_service = search_service
         self.ranking_service = ranking_service
         self.security_gateway = security_gateway
         self.products = products
+        self.audit_logger = audit_logger or SecurityAuditLogger()
 
-    def search(self, user_message: str):
+    def search(self, user_message: str, request_id: str | None = None,):
 
         security_result = self.security_gateway.check(
             user_message
+        )
+        if request_id:
+            self.audit_logger.record(
+                request_id=request_id,
+                result=security_result,
         )
 
         if security_result.decision == SecurityDecision.BLOCK:
