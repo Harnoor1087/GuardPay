@@ -1,5 +1,5 @@
 from backend.app.security.detector import SecurityDetector
-from backend.app.security.models import SecurityResult
+from backend.app.security.models import (SecurityDecision, SecurityResult)
 from backend.app.security.policy import SecurityPolicy
 
 
@@ -17,9 +17,17 @@ class SecurityGateway:
 
         signals = []
 
-        for detector in self.detectors:
-            signals.extend(
-                detector.detect(text)
+        try:
+            for detector in self.detectors:
+                signals.extend(
+                    detector.detect(text)
+                )
+
+        except Exception:
+            return SecurityResult(
+                decision=SecurityDecision.BLOCK,
+                risk_score=100,
+                signals=[],
             )
 
         return self.policy.evaluate(signals)
