@@ -54,6 +54,12 @@ class PromptInjectionDetector(SecurityDetector):
         text = text.translate(leetspeak_map)
 
         text = re.sub(
+            r"[\W_]+",
+            " ",
+            text,
+        )
+
+        text = re.sub(
             r"\s+",
             " ",
             text,
