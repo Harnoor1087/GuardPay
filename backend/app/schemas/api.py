@@ -21,7 +21,11 @@ class SearchRequest(BaseModel):
 
         return value
 
+class SecurityResponse(BaseModel):
+    decision: str
+    risk_score: int = Field(ge=0, le=100)
 
 class SearchResponse(BaseModel):
     intent: ShoppingIntent
     products: list[RankedProduct]
+    security: SecurityResponse
