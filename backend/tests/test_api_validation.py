@@ -86,6 +86,28 @@ def test_blocked_request_is_rejected_by_api():
 
     body = response.json()
 
-    assert body["detail"] == (
+    assert body["error"]["code"] == "SECURITY_BLOCKED"
+    assert body["error"]["message"] == (
         "Request blocked by security policy."
     )
+
+def test_search_request_is_audited_with_request_id(caplog):
+
+    request_id = "audit-test-request"
+
+    with caplog.at_level("INFO"):
+
+        response = client.post(
+            "/api/v1/search",
+            headers={
+                "X-Request-ID": request_id,
+            },
+            json={
+                "message": "Find Nike running shoes under 5000."
+            },
+        )
+
+    assert response.status_code == 200
+    assert request_id in caplog.text
+    assert "security_decision" in caplog.text
+    assert "decision=allow" in caplog.text

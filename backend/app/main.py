@@ -1,5 +1,5 @@
 import logging
-
+from backend.app.security.exceptions import SecurityBlockedError
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
@@ -23,7 +23,20 @@ app = FastAPI(
 )
 app.add_middleware(RequestIDMiddleware)
 
-
+@app.exception_handler(SecurityBlockedError)
+async def security_blocked_exception_handler(
+    request: Request,
+    exc: SecurityBlockedError,
+):
+    return JSONResponse(
+        status_code=403,
+        content={
+            "error": {
+                "code": "SECURITY_BLOCKED",
+                "message": exc.message,
+            }
+        },
+    )
 @app.exception_handler(Exception)
 async def unexpected_exception_handler(
     request: Request,
