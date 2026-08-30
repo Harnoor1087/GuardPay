@@ -1,3 +1,4 @@
+from backend.app.llm.exceptions import LLMProviderError
 from backend.app.llm.provider import LLMProvider
 from backend.app.schemas.intent import ShoppingIntent
 
@@ -8,7 +9,14 @@ class IntentExtractor:
         self.provider = provider
 
     def extract(self, user_message: str) -> ShoppingIntent:
-        result = self.provider.extract_intent(user_message)
+
+        try:
+            result = self.provider.extract_intent(
+                user_message
+            )
+
+        except Exception as exc:
+            raise LLMProviderError() from exc
 
         if not isinstance(result, ShoppingIntent):
             raise TypeError(
