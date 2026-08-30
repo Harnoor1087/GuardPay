@@ -1,7 +1,8 @@
 from backend.app.security.detector import SecurityDetector
 from backend.app.security.models import (SecurityDecision, SecurityResult)
 from backend.app.security.policy import SecurityPolicy
-
+import logging
+logger = logging.getLogger(__name__)
 
 class SecurityGateway:
 
@@ -24,6 +25,10 @@ class SecurityGateway:
                 )
 
         except Exception:
+            logger.exception(
+                "security_detector_failure"
+            )
+
             return SecurityResult(
                 decision=SecurityDecision.BLOCK,
                 risk_score=100,

@@ -55,3 +55,20 @@ def test_gateway_blocks_when_later_detector_fails():
 
     assert result.decision == SecurityDecision.BLOCK
     assert result.risk_score == 100
+
+def test_gateway_logs_detector_failure(caplog):
+
+    gateway = SecurityGateway(
+        detectors=[FailingDetector()],
+        policy=SecurityPolicy(),
+    )
+
+    with caplog.at_level("ERROR"):
+
+        result = gateway.check(
+            "Find Nike running shoes."
+        )
+
+    assert result.decision == SecurityDecision.BLOCK
+    assert result.risk_score == 100
+    assert "security_detector_failure" in caplog.text
