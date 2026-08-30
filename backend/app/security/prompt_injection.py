@@ -35,7 +35,11 @@ class PromptInjectionDetector(SecurityDetector):
     def _normalize(text: str) -> str:
 
         text = unicodedata.normalize("NFKC", text)
-
+        text = "".join(
+            char
+            for char in text
+            if unicodedata.category(char) != "Cf"
+        )
         text = text.lower()
 
         leetspeak_map = str.maketrans({
