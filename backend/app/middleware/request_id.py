@@ -9,6 +9,7 @@ from starlette.requests import Request
 logger = logging.getLogger(__name__)
 
 REQUEST_ID_HEADER = "X-Request-ID"
+MAX_REQUEST_ID_LENGTH = 128
 
 
 class RequestIDMiddleware(BaseHTTPMiddleware):
@@ -19,7 +20,12 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
             REQUEST_ID_HEADER
         )
 
-        if not request_id:
+        if (
+            not request_id
+            or len(request_id) > MAX_REQUEST_ID_LENGTH
+            or "\r" in request_id
+            or "\n" in request_id
+        ):
             request_id = str(uuid.uuid4())
 
         request.state.request_id = request_id
